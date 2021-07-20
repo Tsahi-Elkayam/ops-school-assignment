@@ -20,7 +20,7 @@ else:
 	for i in $(($#-1))
 	do
 		echo "Copying $i"
-		sum=rsync -av i vagrant@destination:/${@: -1} | awk 'NR==3'| awk '{print $2}'
+		sum="rsync -av i vagrant@destination:/${@: -1} | awk 'NR==3'| awk '{print $2}'"
 		total=total+sum
 	done
 	echo "copied total of $total bytes"
