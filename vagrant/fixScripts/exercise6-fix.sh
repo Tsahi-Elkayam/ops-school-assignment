@@ -3,7 +3,8 @@
 
 server1='192.168.100.10'
 server2='192.168.100.11'
-length=$(($#-1))
+user=vagrant
+#length=$(($#-1))
 
 if ["$#" -lt 2]; then 
 	echo "Expected Minimum of 2 Arguments"
@@ -20,8 +21,8 @@ else:
 	for i in $(($#-1))
 	do
 		echo "Copying $i"
-		sum="rsync -av i vagrant@destination:/${@: -1} | awk 'NR==3'| awk '{print $2}'"
-		total=total+sum
+		result="rsync -av i $user@$destination:/${@: -1} | awk 'NR==3'| awk '{print $2}'"
+		total=$(($total + $result))
 	done
 	echo "copied total of $total bytes"
 fi
