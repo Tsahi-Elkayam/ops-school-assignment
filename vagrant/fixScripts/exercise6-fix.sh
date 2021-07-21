@@ -7,11 +7,11 @@ user=vagrant
 num_cp_args=$(($#-1))
 cp_to=${@: -1}
 
-if ["$#" -lt 2]; then 
+if [ "$#" -lt 2 ]; then 
 	echo "Expected Minimum of 2 Arguments"
 	exit 1
-else:
-	if [$HOSTNAME == $server1]
+else
+	if [ $HOSTNAME == $server1 ]
 	then
 		destination=$server2
 	else
@@ -19,12 +19,11 @@ else:
 	fi
 
 	total=0
-	i=0
 	
-	for i in $num_cp_args
+	for i in 1 .. $num_cp_args
 	do
 		echo "Copying $i"
-		result="rsync -av i $user@$destination:/$cp_to | awk 'NR==3'| awk '{print $2}'"
+		result="rsync -av $i $user@$destination:/$cp_to | awk 'NR==3'| awk '{print $2}'"
 		total=$(($total + $result))
 	done
 	echo "copied total of $total bytes"
